@@ -55,7 +55,3 @@
   `(defmethod dispatch ~name [id# method# params#]
      (apply make-response [(~function params#) id#])))
 
-;;;;;;;;;;
-; Handlers
-
-(defhandler "EchoHandler.echo" identity)
