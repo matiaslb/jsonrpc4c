@@ -10,9 +10,9 @@ jsonrpc4c is a JSON-RPC library for Clojure.
     
     (rpc/defhandler "echo" identity)
     
-    (run-jetty #'server/app {:port 9000})
+    (run-jetty #'server/app {:port 3000})
 
-Starts listening on port 9000 and provides the method "echo" that does nothing
+Starts listening on port 3000 and provides the method "echo" that does nothing
 but return its arguments.
 
 
