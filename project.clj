@@ -1,5 +1,5 @@
 (defproject jsonrpc4c "0.0.1-SNAPSHOT"
-            :description "a JSON-RPC library for the Clojure programming language"
+            :description "a JSON-RPC library for Clojure"
             :dependencies [[org.clojure/clojure "1.2.1"]
                            [org.clojure/clojure-contrib "1.2.0"]
                            [ring/ring-core "0.3.11"]

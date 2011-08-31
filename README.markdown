@@ -1,6 +1,6 @@
 # jsonrpc4c
 
-jsonrpc4c is a JSON-RPC library for the Clojure programming language.
+jsonrpc4c is a JSON-RPC library for Clojure.
 
 ## Usage
 
