@@ -50,8 +50,8 @@
 (defmethod dispatch :default [id method params]
   (apply make-error [:method-not-found id]))
 
-; Macro to compile handlers
-(defmacro defhandler [name function]
-  `(defmethod dispatch ~name [id# method# params#]
-     (apply make-response [(~function params#) id#])))
+(defn defhandler [name function]
+  "Simplifies the binding of functions to an exposed method name"
+  (defmethod dispatch name [id method params]
+     (apply make-response [(function params) id])))
 
