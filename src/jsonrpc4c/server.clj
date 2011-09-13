@@ -5,6 +5,7 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [clojure.contrib.json :as json]
+            [clojure.walk :as walk]
             [jsonrpc4c.rpc :as rpc]))
 
 (defn json-response [data & [status]]
@@ -20,7 +21,9 @@
 (defroutes rpc-routes
   (POST "/" {json-params :json-params} 
     (let [{id "id" method "method" params "params"} json-params] 
-      (dispatch-rpc-request id method params))))
+      (dispatch-rpc-request id method (cond
+                                        (map? params) (walk/keywordize-keys params)
+                                        :else params)))))
 
 (def app
   (-> rpc-routes
