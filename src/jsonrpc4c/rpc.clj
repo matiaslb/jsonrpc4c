@@ -1,4 +1,5 @@
 (ns jsonrpc4c.rpc
+  (:use clojure.contrib.def)
   (:require [clojure.contrib.json :as json]))
 
 ;;;;;;;;;;;
@@ -40,6 +41,22 @@
            :data (or data "")}
    :id id
    })
+
+(defmacro defnlm
+  "Defines a function that can take a list or a map."
+  [fn-name & fn-tail]
+  (let [[fn-name [args & body]] (name-with-attributes fn-name fn-tail)
+        syms (map #(-> % name symbol) args)
+        de-map {:keys (vec syms)}]
+    `(defn ~fn-name
+       [map-or-vec#]
+       (cond
+         (map? map-or-vec#) (let [~de-map map-or-vec#]
+                              ~@body)
+         :else (let [~args map-or-vec#]
+                 ~@body)
+         ))))
+
 
 ;;;;;;;;;;
 ; Dispatch
