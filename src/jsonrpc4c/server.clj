@@ -1,10 +1,10 @@
 (ns jsonrpc4c.server
   (:use compojure.core)
-  (:use ring.middleware.json-params)
   (:use ring.util.response)
+  (:use ring.middleware.json-params)
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
-            [clojure.contrib.json :as json]
+            [clojure.data.json :as json]
             [clojure.walk :as walk]
             [jsonrpc4c.rpc :as rpc]))
 
@@ -19,12 +19,11 @@
   (json-response (rpc/dispatch id method params)))
 
 (defroutes rpc-routes
-  (POST "/" {json-params :json-params} 
-    (let [{id "id" method "method" params "params"} json-params] 
-      (dispatch-rpc-request id method (cond
-                                        (map? params) (walk/keywordize-keys params)
-                                        :else params)))))
-
+           (POST "/" {json-params :json-params} 
+                 (let [{id "id" method "method" params "params"} json-params] 
+                   (dispatch-rpc-request id method (cond
+                                                     (map? params) (walk/keywordize-keys params)
+                                                     :else params)))))
 (def app
   (-> rpc-routes
     handler/site

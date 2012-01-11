@@ -1,6 +1,6 @@
 (ns jsonrpc4c.rpc
-  (:use clojure.contrib.def)
-  (:require [clojure.contrib.json :as json]))
+  (:use (clojure.tools [macro :only [name-with-attributes]]))
+  (:require [clojure.data.json :as json]))
 
 ;;;;;;;;;;;
 ; Constants
